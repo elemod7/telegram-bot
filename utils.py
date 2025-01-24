@@ -2,8 +2,8 @@ from fpdf import FPDF, XPos, YPos
 
 def calculate_income(nsj, deposit, tax_rate, cashback_rate):
     years = [1, 2, 3, 4, 5]
-    deposit_rates = [21.6, 18.5, 12.5, 8, 5]  # Процентные ставки для вклада
-    tax_deduction = 39000  # Налоговый вычет
+    deposit_rates = [21.6, 18.5, 12.5, 8, 5]
+    tax_deduction = 39000
 
     results = []
     for year, rate in zip(years, deposit_rates):
@@ -11,26 +11,22 @@ def calculate_income(nsj, deposit, tax_rate, cashback_rate):
         nsj_income = nsj * (cashback_rate / 100) * (1 - tax_rate) + tax_deduction
         total_income = deposit_income + nsj_income
         results.append((year, deposit_income, nsj_income, total_income))
-
-    # Сравнение с полным вкладом
     full_deposit_income = []
     total_portfolio = nsj + deposit
     for year, rate in zip(years, deposit_rates):
         income = total_portfolio * (rate / 100) * (1 - tax_rate)
         full_deposit_income.append(income)
-
     comparison = {
         "split_income": sum([res[3] for res in results]),
         "full_deposit_income": sum(full_deposit_income),
         "difference": sum([res[3] for res in results]) - sum(full_deposit_income)
     }
-
     return results, comparison
 
 def generate_pdf(data, comparison):
     pdf = FPDF()
     pdf.add_page()
-    pdf.add_font('DejaVu', '', 'DejaVuSans.ttf')  # Подключаем шрифт с поддержкой Unicode
+    pdf.add_font('DejaVu', '', 'DejaVuSans.ttf')
     pdf.set_font('DejaVu', '', 12)
 
     pdf.cell(200, 10, text="Расчет доходности", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
@@ -64,7 +60,6 @@ def generate_pdf(data, comparison):
     pdf.cell(100, 10, "Разница между доходами", border=1)
     pdf.cell(100, 10, f"{comparison['difference']:.2f} руб.", border=1, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
-    # Сохранение PDF
     file_path = "income_report.pdf"
     pdf.output(file_path)
     return file_path
