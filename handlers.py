@@ -18,14 +18,11 @@ def register_handlers(dp, main_menu_keyboard):
     async def nsj_input_handler(message: types.Message, state: FSMContext):
         try:
             nsj = float(message.text)
-
             if nsj < 300000:
                 await message.answer("Сумма НСЖ не может быть меньше 300 000 рублей. Попробуйте ещё раз.")
                 return
-
             cashback_rate = 34 if 300000 <= nsj < 500000 else 36
             await state.update_data(nsj_amount=nsj, cashback_rate=cashback_rate)
-
             await message.answer("Введите сумму, которую клиент хочет разместить на вкладе:", reply_markup=main_menu_keyboard)
             await CalculationStates.deposit_amount.set()
         except ValueError:
@@ -37,14 +34,10 @@ def register_handlers(dp, main_menu_keyboard):
             deposit = float(message.text)
             user_data = await state.get_data()
             nsj = user_data.get("nsj_amount")
-
             if deposit + nsj < 300000:
                 await message.answer("Сумма вклада и НСЖ должна быть больше 300 000 рублей. Попробуйте ещё раз.")
                 return
-
             await state.update_data(deposit_amount=deposit)
-
-            # Кнопки для выбора ставки налога
             tax_keyboard = InlineKeyboardMarkup(row_width=2)
             tax_keyboard.add(
                 InlineKeyboardButton(text="13%", callback_data="tax_13"),
@@ -64,17 +57,11 @@ def register_handlers(dp, main_menu_keyboard):
         nsj = user_data.get("nsj_amount")
         deposit = user_data.get("deposit_amount")
         cashback_rate = user_data.get("cashback_rate")
-
-        # Расчет доходности
         result, comparison = calculate_income(nsj, deposit, tax_rate, cashback_rate)
-
-        # Генерация PDF
         pdf_path = generate_pdf(result, comparison)
 
-        # Отправка PDF пользователю
         with open(pdf_path, "rb") as pdf_file:
             await callback_query.message.answer_document(pdf_file, caption="Ваш расчет доходности готов!")
-
         await state.finish()
 
     @dp.message_handler(lambda message: message.text == "Вернуться на главную")
