@@ -1,6 +1,5 @@
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
-# Состояния для ввода данных
 class CalculationStates(StatesGroup):
     portfolio_amount = State()
     nsj_amount = State()
