@@ -52,7 +52,7 @@ async def handle_menu_callbacks(callback_query: types.CallbackQuery):
                 await callback_query.bot.send_document(user_id, FSInputFile(file_path))
             else:
                 await callback_query.bot.send_message(user_id, 
-                    "⚠️ Этот файл пока недоступен. Он появится в ближайшее время.")
+                    "⚠️ В продукте поменялись условия, новая презентация станет доступна в ближайшее время.")
         except Exception as e:
             await callback_query.bot.send_message(user_id, f"❌ Ошибка при отправке файла: {e}")
         finally:

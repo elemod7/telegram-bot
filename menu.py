@@ -9,7 +9,7 @@ PDF_FILES = {
     "send_pdf_product_cashback_20": "pdfs/НСЖ с кешбэком 2.2.pdf",
     "send_pdf_product_investor_41": "pdfs/Инвестор 4.1 Сбалансированная.pdf",
     "send_pdf_product_fixed_income": "pdfs/Фиксированный доход.pdf",
-    "send_pdf_percents": "pdfs/Параметры_Фиксированный_доход_31_03_2025.pdf",
+    "send_pdf_percents": "pdfs/Параметры Фиксированный доход.pdf",
     "send_doc_product_cashback_31": "docs/НСЖ_с_кешбэком_3_1_образец_договора.pdf",
     "send_doc_product_cashback_20": "docs/НСЖ_с_кешбэком_2_2_образец_договора.pdf",
     "send_doc_product_investor_41": "docs/Инвестор_4_1_Сбалансированная_образец_договора.pdf",
@@ -28,7 +28,9 @@ PDF_FILES = {
     "send_pdf_instruction4": "docs/Инструкция по подаче обращения НЕ из договора.docx",
     "rekvizit": "docs/Реквизиты Ренессанс Жизнь.pdf",
     "nalog2025": "pdfs/Изменения в налоговом кодексе с 2025 года.pdf",
-    "pravila": "pdfs/Правила страхования.pdf"
+    "pravila": "pdfs/Правила страхования.pdf",
+    "sroki": "pdfs/Памятка_сроки_заявления.pdf",
+    "fns": "docs/Заявление на справку о платежах в НСЖ.pdf"
 }
 
 MENU_STRUCTURE = {
@@ -47,6 +49,7 @@ MENU_STRUCTURE = {
     },
     "docs_menu": {
         "Заявления": "docs_statements_menu",
+        "Сроки обработки заявлений": "sroki",
         "Инструкции": "docs_instructions_menu",
         "Образцы договоров": "obrazec",
         "Правила страхования": "pravila",
@@ -64,6 +67,7 @@ MENU_STRUCTURE = {
     },
     "docs_statements_menu": {
         "Заявление на выплату по дожитию": "send_pdf_statement1",
+        "Заявление на запрос справки для налогового вычета": "fns",
         "Заявление на досрочное расторжение": "send_pdf_statement2",
         "Заявление на внесение изменений": "send_pdf_statement3",
         "Заявление о восстановлении договора": "send_pdf_statement4",
@@ -85,8 +89,8 @@ MENU_STRUCTURE = {
         "Назад": "docs_menu"
     },
     "products_menu": {
-        "НСЖ с кешбэком 3.1 на 5 лет": "product_cashback_31_menu",
-        "НСЖ с кешбэком 2.2 на 3 года": "product_cashback_20_menu",
+        "НСЖ с кешбэком на 5 лет": "product_cashback_31_menu",
+        "НСЖ с кешбэком на 3 года": "product_cashback_20_menu",
         "Инвестор 4.1 Сбалансированная": "product_investor_41_menu",
         "Фиксированный доход": "product_fixed_income_menu",
         "Назад": "Главное меню",
@@ -95,18 +99,21 @@ MENU_STRUCTURE = {
         "Описание продукта": "product_cashback_31",  
         "Презентация (взнос от 300 тыс.)": "send_pdf_product_cashback_31_ot_300",
         "Презентация (взнос от 500 тыс.)": "send_pdf_product_cashback_31_ot_500",
+        "Текущие ставки": "stavki_cashback_31",
         "Образец договора": "send_doc_product_cashback_31",
         "Назад": "products_menu",
     },
     "product_cashback_20_menu": {
         "Описание продукта": "product_cashback_20",  
         "Презентация": "send_pdf_product_cashback_20",
+        "Текущие ставки": "stavki_cashback_20",
         "Образец договора": "send_doc_product_cashback_20",
         "Назад": "products_menu",
     },
     "product_investor_41_menu": {
         "Описание продукта": "product_investor_41",  
         "Презентация": "send_pdf_product_investor_41",
+        "Текущие ставки": "stavki_investor_41",
         "Образец договора": "send_doc_product_investor_41",
         "Назад": "products_menu",
     },
@@ -186,6 +193,19 @@ CONTENT = {
         "Тел. +7 (980) 807-77-78\n"
         "Эл. почта: Oleg.Seryankin@renlife.com\n"
         "Telegram: @elemoder"
+    ),
+
+    "stavki_cashback_31": (
+        "При взносе от 500 тыс. руб. ставка кешбэка составит 31%\n"
+        "При взносе от 300 тыс. руб. ставка кешбэка составит 28%"
+    ),
+
+    "stavki_cashback_20": (
+        "Текущая ставка кешбэка при взносе от 500 тыс. руб. на 3 года составит 25%"
+    ),
+
+    "stavki_investor_41": (
+        "За 3 года клиент получит гарантированный доход 36% к сумме взноса, а также ДИД (дополнительный инвестиционный доход) при его наличии."
     ),
 
     "vozvrat_naloga": (

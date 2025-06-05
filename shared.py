@@ -5,14 +5,19 @@ from database import DatabaseManager
 from access_management import AccessManager
 from functools import wraps
 from aiogram import types
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import (
+    InlineKeyboardMarkup,
+    InlineKeyboardButton,
+    ReplyKeyboardMarkup,
+    KeyboardButton
+)
 
 load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_ID = int(os.getenv("ADMIN_ID"))
 
-bot_instance: Bot = None  # будет установлен в main
+bot_instance: Bot = None
 db = DatabaseManager()
 
 access_manager = AccessManager(
@@ -20,8 +25,16 @@ access_manager = AccessManager(
     access_requests_file="access_requests.json"
 )
 
-main_menu_keyboard = None  # инициализируется позже
+# ✅ Только одна Reply‑кнопка под полем ввода — "На главную"
+main_menu_keyboard = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="На главную")]
+    ],
+    resize_keyboard=True,
+    one_time_keyboard=False
+)
 
+# === Декораторы доступа ===
 
 def access_required(handler):
     @wraps(handler)
@@ -50,6 +63,7 @@ def access_required(handler):
         return await handler(event, *args, **kwargs)
 
     return wrapper
+
 
 def admin_only(handler):
     @wraps(handler)

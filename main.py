@@ -2,12 +2,12 @@ import asyncio
 import os
 import logging
 import shared
-from aiogram import Bot, Dispatcher
+from aiogram import Bot, Dispatcher, types
 from aiogram.fsm.storage.memory import MemoryStorage
 from dotenv import load_dotenv
 from handlers import (
     access_router, admin_router, reports_router,
-    start_router, menu_router, errors_router
+    start_router, menu_router, errors_router, broadcast_router
 )
 
 logging.basicConfig(
@@ -34,14 +34,16 @@ dp = Dispatcher(storage=storage)
 shared.bot_instance = bot
 shared.ADMIN_ID = ADMIN_ID
 
+# Подключение твоих существующих роутеров
 dp.include_router(access_router)
 dp.include_router(admin_router)
 dp.include_router(reports_router)
 dp.include_router(start_router)
-dp.include_router(menu_router) 
+dp.include_router(menu_router)
 dp.include_router(errors_router)
+dp.include_router(broadcast_router)
 
-# Планировщик отчётов
+# Планировщик отчётов (оставляем как есть)
 async def schedule_daily_report():
     import datetime
     while True:
